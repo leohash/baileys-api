@@ -258,7 +258,7 @@ class WhatsappService {
 
 	static getSessionStatus(session: Session) {
 		const state = ["CONNECTING", "CONNECTED", "DISCONNECTING", "DISCONNECTED"];
-		let status = state[(session.ws as WebSocketType).readyState];
+		let status = state[session.ws.isClosed=== true ? 3 : session.ws.isClosing=== true ? 2 : session.ws.isOpen=== true ? 1 : 0];
 		status = session.user ? "AUTHENTICATED" : status;
 		return session.waStatus !== WAStatus.Unknown ? session.waStatus : status.toLowerCase();
 	}
